@@ -3,38 +3,46 @@ package com.amazingcode.in.example.service.impl;
 import java.util.List;
 
 import com.amazingcode.in.example.entity.Category;
+import com.amazingcode.in.example.repository.CategoryRepository;
 import com.amazingcode.in.example.service.CategoryService;
 
 public class CategoryServiceImpl implements CategoryService {
 
+	private final CategoryRepository categoryRepository;
+
+	public CategoryServiceImpl(CategoryRepository categoryRepository) {
+		this.categoryRepository = categoryRepository;
+	}
+
 	@Override
 	public Category createCategory(Category category) {
-		// TODO Auto-generated method stub
-		return null;
+		return categoryRepository.save(category);
 	}
 
 	@Override
 	public List<Category> getAllCategory() {
-		// TODO Auto-generated method stub
-		return null;
+		return categoryRepository.findAll();
 	}
 
 	@Override
 	public Category getCategory(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return categoryRepository.findById(id).get();
 	}
 
 	@Override
 	public Category updateCategory(Long id, Category category) {
-		// TODO Auto-generated method stub
-		return null;
+		Category existCategory = categoryRepository.findById(id).get();
+		if (existCategory == null) {
+			return null;
+		}
+		category.setCategoryId(id);
+		Category updatedCategory = categoryRepository.save(category);
+		return updatedCategory;
 	}
 
 	@Override
 	public void deleteCategory(Long id) {
-		// TODO Auto-generated method stub
-		
+		categoryRepository.deleteById(id);
 	}
 
 }
