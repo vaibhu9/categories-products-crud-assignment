@@ -2,10 +2,13 @@ package com.amazingcode.in.example.service.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.amazingcode.in.example.entity.Category;
 import com.amazingcode.in.example.repository.CategoryRepository;
 import com.amazingcode.in.example.service.CategoryService;
 
+@Service
 public class CategoryServiceImpl implements CategoryService {
 
 	private final CategoryRepository categoryRepository;
