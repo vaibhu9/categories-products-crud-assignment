@@ -1,7 +1,6 @@
 package com.amazingcode.in.example.exception;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -11,16 +10,16 @@ import com.amazingcode.in.example.response.ErrorResponse;
 @RestControllerAdvice
 public class GlobalException {
 	
-	@ExceptionHandler(CategoryException.class)
-	public ResponseEntity<ErrorResponse> handleCategoryException(CategoryException ex){
-		ErrorResponse errorResponse = new ErrorResponse(ex.getStatusCode(), ex.getExceptionMessage(), ex.getStatus());
-		return new ResponseEntity<>(errorResponse, ex.getStatus());
+	@ExceptionHandler(AlreadyPresentException.class)
+	public ResponseEntity<ErrorResponse> handleAlreadyPresentException(AlreadyPresentException ex){
+		ErrorResponse errorResponse = new ErrorResponse(409, ex.getExceptionMessage(), HttpStatus.CONFLICT);
+		return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
 	}
 	
-	@ExceptionHandler(ProductException.class)
-	public ResponseEntity<ErrorResponse> handleProductException(ProductException ex){
-		ErrorResponse errorResponse = new ErrorResponse(ex.getStatusCode(), ex.getExceptionMessage(), ex.getStatus());
-		return new ResponseEntity<>(errorResponse, ex.getStatus());
+	@ExceptionHandler(NotPresentException.class)
+	public ResponseEntity<ErrorResponse> handleAlreadyPresentException(NotPresentException ex){
+		ErrorResponse errorResponse = new ErrorResponse(204, ex.getExceptionMessage(), HttpStatus.NO_CONTENT);
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).body(errorResponse);
 	}
 	
 	@ExceptionHandler(Exception.class)
