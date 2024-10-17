@@ -20,10 +20,10 @@ import com.amazingcode.in.example.service.ProductService;
 @RequestMapping("/api/products")
 public class ProductController {
 	
-	private final ProductService productService; // Change to ProductService
+	private final ProductService productService;
 
 	public ProductController(ProductService productService) {
-		this.productService = productService; // Inject ProductService
+		this.productService = productService;
 	}
 
 	@PostMapping
@@ -42,8 +42,7 @@ public class ProductController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Product> updateProduct(@PathVariable("id") Long id, @RequestBody Product product) { // Use
-																												// @PathVariable
+	public ResponseEntity<Product> updateProduct(@PathVariable("id") Long id, @RequestBody Product product) {																										// @PathVariable
 		return ResponseEntity.status(HttpStatus.OK).body(productService.updateProduct(id, product));
 	}
 
