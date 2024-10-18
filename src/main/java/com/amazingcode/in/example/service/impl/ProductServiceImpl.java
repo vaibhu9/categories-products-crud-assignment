@@ -3,6 +3,8 @@ package com.amazingcode.in.example.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.amazingcode.in.example.entity.Product;
@@ -29,9 +31,18 @@ public class ProductServiceImpl implements ProductService {
 		return productRepository.save(product);
 	}
 
+//	@Override
+//	public List<Product> getAllProducts() {
+//		List<Product> existsProducts = productRepository.findAll();
+//		if(existsProducts.isEmpty()||existsProducts==null) {
+//			throw new NotPresentException("Products not present.");
+//		}
+//		return existsProducts;
+//	}
+	
 	@Override
-	public List<Product> getAllProducts() {
-		List<Product> existsProducts = productRepository.findAll();
+	public Page<Product> getAllProducts(Pageable pageable) {
+		Page<Product> existsProducts = productRepository.findAll(pageable);
 		if(existsProducts.isEmpty()||existsProducts==null) {
 			throw new NotPresentException("Products not present.");
 		}
