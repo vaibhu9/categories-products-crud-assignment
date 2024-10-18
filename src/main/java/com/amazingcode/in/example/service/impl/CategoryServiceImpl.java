@@ -3,6 +3,8 @@ package com.amazingcode.in.example.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.amazingcode.in.example.entity.Category;
@@ -29,10 +31,19 @@ public class CategoryServiceImpl implements CategoryService {
 		return categoryRepository.save(category);
 	}
 
+//	@Override
+//	public List<Category> getAllCategory() {
+//		List<Category> existsCategories = categoryRepository.findAll();
+//		if(existsCategories.isEmpty()||existsCategories==null) {
+//			throw new NotPresentException("Categories not present.");
+//		}
+//		return existsCategories;
+//	}
+	
 	@Override
-	public List<Category> getAllCategory() {
-		List<Category> existsCategories = categoryRepository.findAll();
-		if(existsCategories.isEmpty()||existsCategories==null) {
+	public Page<Category> getAllCategory(Pageable pageable) {
+		Page<Category> existsCategories = categoryRepository.findAll(pageable);
+		if(existsCategories.isEmpty()||existsCategories==null){
 			throw new NotPresentException("Categories not present.");
 		}
 		return existsCategories;
